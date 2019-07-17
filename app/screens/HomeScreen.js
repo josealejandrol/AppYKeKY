@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {ImageBackground,View,Text,Image,TouchableOpacity} from 'react-native';
+import {ImageBackground,View,Text,Image,TouchableOpacity,Alert,StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Logo extends React.Component {
     render() {
@@ -20,7 +21,7 @@ class Logo extends React.Component {
 class MenuButton extends React.Component {
     render() {
         return (
-            <TouchableOpacity onPress = {this.props.onPress} ><Image source={require('../assets/menu.png')} style={{width: 30, height: 30}}/></TouchableOpacity>
+            <TouchableOpacity onPress = {this.props.onPress} ><Text><Icon name="bars" size={30} color="black" /></Text></TouchableOpacity>
         );
     }
 }
@@ -37,10 +38,19 @@ export default class Class extends Component {
     render() {
         return (
             <ImageBackground source={require('../assets/screen2.png')} style={{width: '100%', height: '100%'}}>
-                <View>
-                    <Text>HomeScreen</Text>
+                <View style={styles.container}>
+                    <View>
+
+                    </View>
                 </View>
             </ImageBackground>
-        );
+        );s
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'rgba(11,27,105, .4)'
+    }
+})

@@ -46,7 +46,11 @@ export default class RegisterScreen extends Component {
                             </View>
                             <View style={styles.containerR}>
                                 <Text>¿Ya tienes una cuenta?</Text> 
-                                <TouchableOpacity><Text style={styles.textSesion}> Inicia Sesión</Text></TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={() => {this.props.navigation.navigate("Login")}}
+                                >
+                                    <Text style={styles.textSesion}> Inicia Sesión</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>                        
                     </View>
