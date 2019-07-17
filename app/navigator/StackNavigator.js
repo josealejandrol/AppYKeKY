@@ -5,12 +5,14 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import Initial from '../screens/InitialScreen';
 import Swiper from '../screens/SwiperScreen';
 import Login from '../screens/LoginScreen';
+import Register from '../screen/RegisterScreen';
 
 const AppNavigator = createStackNavigator(
     {
     Initial,
     Swiper,
-    Login
+    Login,
+    Register
     },
     {
       initialRouteName: "Initial",
