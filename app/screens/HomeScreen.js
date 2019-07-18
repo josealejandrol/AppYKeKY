@@ -21,15 +21,15 @@ class Logo extends React.Component {
 class MenuButton extends React.Component {
     render() {
         return (
-            <TouchableOpacity onPress = {this.props.onPress} ><Text><Icon name="bars" size={30} color="black" /></Text></TouchableOpacity>
+            <TouchableOpacity onPress = {() => this.props} ><Text><Icon name="bars" size={30} color="black" /></Text></TouchableOpacity>
         );
     }
 }
 
-export default class Class extends Component {
+export default class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
-            headerLeft: <MenuButton onPress={() => navigation.openDrawer()} />,
+            headerLeft: <MenuButton />,
             headerTitle: <Logo />,
             headerBackTitle: "Home",
             headerLayoutPreset: "center"
