@@ -1,10 +1,18 @@
 import React,{Component} from 'react';
 import {View,Image,Text,TextInput,ImageBackground,StyleSheet,TouchableOpacity,Alert} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginScreen extends Component {
     static navigationOptions = {
         header: null
+    }
+
+    constructor(){
+        super();
+        this.state = {
+            email: '',
+            password: ''
+        }
     }
 
     // onLoginPressed = () => {
@@ -32,17 +40,20 @@ export default class LoginScreen extends Component {
                                 style={styles.textInput} 
                                 placeholder={'Nombre de Usuario'}
                                 placeholderTextColor={'rgba(2,2,53, 1.0)'}
+                                onChangeText={(email) => {this.setState({email: email})}}
                             />
                             {/* <Icon name="contact" size={30} color="#900" />; */}
                             <TextInput
                                 style={styles.textInput} 
                                 placeholder={'Contraseña'}
                                 placeholderTextColor={'rgba(2,2,53, 1.0)'}
+                                secureTextEntry={true}
+                                onChangeText={(password) => {this.setState({password: password})}}
                             />
                             <TouchableOpacity style={styles.botonIzq}><Text style={{color: 'rgba(2,2,53, 1.0)'}}>¿Olvido su contraseña?</Text></TouchableOpacity>
                             <TouchableOpacity 
                                 style={styles.botonIS}
-                                onPress={() => {this.props.navigation.navigate('Home')}}
+                                onPress={() => {this.props.navigation.navigate('Home', {email: this.state.email})}}
                                 >
                                     <Text style={styles.textIS}>INICIAR SESIÓN</Text>
                             </TouchableOpacity>
@@ -52,13 +63,14 @@ export default class LoginScreen extends Component {
                                     style={styles.botonR}
                                     onPress={() => {Alert.alert("Facebook aún no disponible")}}
                                 >
-                                    <Text style={{fontSize: 20}}>Fb</Text>
+                                    <Text style={{fontSize: 20, textAlign: 'center'}}><Icon name='facebook-f' size={30} color="black"/></Text>
                                 </TouchableOpacity>
+
                                 <TouchableOpacity 
                                     style={styles.botonR}
                                     onPress={() => {Alert.alert("Google aún no disponible")}}
                                 >
-                                    <Text style={{fontSize: 20}}>Google</Text>
+                                    <Text style={{fontSize: 20,textAlign:'center'}}><Icon name='google' size={30} color="black"/></Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={[styles.redesContainer,{marginTop: '5%'}]}>
@@ -118,10 +130,15 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2
     },
     botonR: {
-        borderRadius: 50,
+        borderRadius: 100,
         borderWidth: 2,
+        padding: 0,
         borderColor: 'rgba(2,2,53, 1.0)',
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        width: 40,
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     botonIzq: {
         right: '20%'

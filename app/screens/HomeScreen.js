@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {ImageBackground,View,Text,Image,TouchableOpacity,Alert,StyleSheet,ScrollView} from 'react-native';
+import {ImageBackground,View,Text,Image,TouchableOpacity,Alert,StyleSheet,ScrollView,Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 class Logo extends React.Component {
@@ -21,11 +21,7 @@ class Logo extends React.Component {
 class MenuButton extends React.Component {
     render() {
         return (
-<<<<<<< HEAD
-            <TouchableOpacity onPress = {() => this.props} ><Text><Icon name="bars" size={30} color="black" /></Text></TouchableOpacity>
-=======
             <TouchableOpacity style={styles.hambuguer} onPress = {this.props.onPress} ><Text><Icon name="bars" size={30} color="#fff" /></Text></TouchableOpacity>
->>>>>>> 345a42206ce6e1dd6c747ed33f0a8a3353aec793
         );
     }
 }
@@ -33,7 +29,7 @@ class MenuButton extends React.Component {
 export default class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
-            headerLeft: <MenuButton />,
+            headerLeft: <MenuButton onPress={() => {this.props.navigation.toggleDrawer();}} />,
             headerTitle: <Logo />,
             headerBackTitle: "Home",
             headerLayoutPreset: "center",
@@ -42,22 +38,35 @@ export default class HomeScreen extends Component {
               },
         };
       };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            email : this.props.navigation.state.params.email,
+        }
+    }
+      
     render() {
         return (
             <View style={styles.container}>
                 
                 <View style={styles.titulo}>
                         <Text style={styles.textT}>Bienvenido a YKEKY</Text>
+                        <Text style={styles.textT}>{this.state.email.substr(0,10)}</Text>
                 </View>
                 <ScrollView style={{flex: 1}}>
                     <View style={styles.card}>
-                        <TouchableOpacity style={styles.cartita}>
+                        <TouchableOpacity style={styles.cartita}
+                            onPress={() => {this.props.navigation.navigate("Test")}}
+                            >
                             <Text><Icon name='user-graduate' size={50} color="black" /></Text>
                             <Text  style={{fontSize:15}} >
                                 Test Vocacional
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.cartita}>
+                        <TouchableOpacity style={styles.cartita}
+                            onPress={() => {this.props.navigation.navigate("LifePlanner")}}
+                            >
                             <Text><Icon name='hand-holding-heart' size={50} color="black"/></Text>
                             <Text style={{fontSize:15}}>
                                 Plan de Vida
@@ -69,7 +78,7 @@ export default class HomeScreen extends Component {
                                 Directorio Escolar
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.cartita}>
+                        <TouchableOpacity style={styles.cartita} onPress={ ()=> Linking.openURL('https://www.becas.sep.gob.mx/') } >
                             <Text><Icon name='edit' size={50} color="black"/></Text>
                             <Text style={{fontSize:15}}>
                                Becas

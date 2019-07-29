@@ -5,14 +5,13 @@ import Home from '../screens/HomeScreen';
 import Initial from '../screens/InitialScreen';
 
 const DrawerNavigator = createDrawerNavigator({
-    Home: {
-      screen: Home,
-    },
-    Notifications: {
-      screen: Initial,
-    },
-  });
-  
-  const Drawer = createAppContainer(DrawerNavigator);
+    Home,
+    Initial
+  },
+  {
+    drawerType: 'slide',
+    drawerWidth: 200
+  }
+  );
 
-  export default Drawer;
+  export default createAppContainer(DrawerNavigator);
