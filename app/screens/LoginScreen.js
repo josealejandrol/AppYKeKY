@@ -53,7 +53,8 @@ export default class LoginScreen extends Component {
                             <TouchableOpacity style={styles.botonIzq}><Text style={{color: 'rgba(2,2,53, 1.0)'}}>¿Olvido su contraseña?</Text></TouchableOpacity>
                             <TouchableOpacity 
                                 style={styles.botonIS}
-                                onPress={() => {this.props.navigation.navigate('Home', {email: this.state.email})}}
+                                // onPress={() => {this.props.navigation.navigate('Home', {email: this.state.email})}}
+                                onPress={() => {this.props.navigation.navigate('Home')}}
                                 >
                                     <Text style={styles.textIS}>INICIAR SESIÓN</Text>
                             </TouchableOpacity>

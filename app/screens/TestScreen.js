@@ -2,6 +2,15 @@ import React,{Component} from 'react';
 import {View, Animated, StyleSheet, TouchableOpacity, Dimensions, Image, Alert, Text} from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
+const matchAreaByQuestionNumber = require('../lib/questions/matchAreaByQuestionNumber');
+
+const responseQuestionsMap = {
+    Nada:  0,
+    Poco:  1,
+    Algo:  2,
+    Mucho: 3
+};
+
 export default class TestScreen extends Component{
     static navigationOptions = {
         title: "Test Vocacional"
@@ -57,11 +66,16 @@ export default class TestScreen extends Component{
         respuestas: []
     }
 
-    saveResponse = ( response ) => {
+    saveResponse = ( response, questionIndex ) => {
         console.log( 'estado sin act: ', this.state.respuestas );
-    
+        
+        let currentResponse = {
+            respuesta: response,
+            areaConocimiento: matchAreaByQuestionNumber( questionIndex )
+        };
+
         this.setState({
-          respuestas : [ ...this.state.respuestas, response ]
+          respuestas : [ ...this.state.respuestas, currentResponse ]
         });
     
         console.log( 'estado actualizado: ', this.state.respuestas );
@@ -111,7 +125,8 @@ export default class TestScreen extends Component{
         if(index + 1 < questions.length) {
             nextQuestion = questions[index + 1];
         }else if(index > questions.length-1){
-            Alert.alert('Ha terminado las preguntas')
+            // console.warn("respuestas", this.state.respuestas)
+            // Alert.alert('Ha terminado las preguntas')
             this.props.navigation.navigate('ResultTS', {respuestas: this.state.respuestas})
        }
 
@@ -136,21 +151,20 @@ export default class TestScreen extends Component{
             });
         }
 
-        this.sendRespuestas = (opt) =>{
-            var respuestas = []
-            console.log(respuestas)
-            respuestas.push(opt) 
-            this.saveResponse( opt );
-            console.log(respuestas)
-            // if( respuestas.length === 1)
-            // {
-            //     Alert.alert('Prueba')
-            // }
+        this.sendRespuestas = ( answerIndex, questionIndex) =>{
+            
+            console.log( 'Unresolved:', this.state.respuestas)
+
+            this.saveResponse(  answerIndex, questionIndex );
+
+            setTimeout(()=>{
+                console.log( 'Resolved:', this.state.respuestas)
+            }, 500);
         }
 
-        this.functionCombinada = (opt) => {
+        this.functionCombinada = (answerIndex, questionIndex) => {
           this.handleAnswer();
-          this.sendRespuestas(opt);
+          this.sendRespuestas(answerIndex, questionIndex);
         }
 
         return(
@@ -168,8 +182,9 @@ export default class TestScreen extends Component{
                 <View style={styles.progress}>
                     <Animated.View style={[styles.bar, progressStyle]} />
                 </View>
+                
                 <TouchableOpacity 
-                    onPress={() => {this.functionCombinada(0)}}
+                    onPress={() => {this.functionCombinada( responseQuestionsMap.Nada , index)}}
                     activeOpacity={.5}
                     style={styles.option}
                 >
@@ -177,7 +192,7 @@ export default class TestScreen extends Component{
                     <Text style={styles.optionText}>Nada</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    onPress={() => {this.functionCombinada(1)}}
+                    onPress={() => {this.functionCombinada(responseQuestionsMap.Poco , index)}}
                     activeOpacity={.5}
                     style={styles.option}
                 >
@@ -185,7 +200,7 @@ export default class TestScreen extends Component{
                     <Text style={styles.optionText}>Poco</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    onPress={() => {this.functionCombinada(2)}}
+                    onPress={() => {this.functionCombinada(responseQuestionsMap.Algo, index)}}
                     activeOpacity={.5}
                     style={styles.option}
                 >
@@ -193,7 +208,7 @@ export default class TestScreen extends Component{
                     <Text style={styles.optionText}>Algo</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    onPress={() => {this.functionCombinada(3)}}
+                    onPress={() => {this.functionCombinada(responseQuestionsMap.Mucho, index)}}
                     activeOpacity={.5}
                     style={styles.option}
                 >
@@ -236,7 +251,7 @@ const styles = StyleSheet.create({
     },
     bar: {
         height: "100%",
-        backgroundColor: "#FFF"
+        backgroundColor: "#F3CE12"
     },
     option: {
         flex: 1,

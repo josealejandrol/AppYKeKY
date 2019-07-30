@@ -29,7 +29,7 @@ class MenuButton extends React.Component {
 export default class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
-            headerLeft: <MenuButton onPress={() => {this.props.navigation.toggleDrawer();}} />,
+            headerLeft: <MenuButton onPress={() => {this.props.navigation.openDrawer();}} />,
             headerTitle: <Logo />,
             headerBackTitle: "Home",
             headerLayoutPreset: "center",
@@ -42,7 +42,7 @@ export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email : this.props.navigation.state.params.email,
+            // email : this.props.navigation.state.params.email,
         }
     }
       
@@ -52,7 +52,7 @@ export default class HomeScreen extends Component {
                 
                 <View style={styles.titulo}>
                         <Text style={styles.textT}>Bienvenido a YKEKY</Text>
-                        <Text style={styles.textT}>{this.state.email.substr(0,10)}</Text>
+                        {/* <Text style={styles.textT}>{this.state.email.substr(0,10)}</Text> */}
                 </View>
                 <ScrollView style={{flex: 1}}>
                     <View style={styles.card}>
