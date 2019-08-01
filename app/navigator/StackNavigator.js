@@ -22,7 +22,9 @@ const AppNavigator = createStackNavigator(
     {
       Home,
       Test,
-      ResultTS
+      LifePlanner,
+      ResultTS,
+      ResultLP
     },
     {
       initialRouteName: "Home",
