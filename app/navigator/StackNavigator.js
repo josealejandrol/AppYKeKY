@@ -21,7 +21,9 @@ const AppNavigator = createStackNavigator(
     Register,
     Home,
     Test,
-    ResultTS
+    ResultTS,
+    LifePlanner,
+    ResultLP
     },
     {
       initialRouteName: "Initial",
